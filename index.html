@@ -9,13 +9,15 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play WS_test.</tw-noscript></noscript></tw-story>
-<tw-storydata name="WS_test" startnode="1" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="E0A10E4D-1836-44AD-8073-D083304308DC" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Hello World" tags="" position="600,200" size="100,100"> (set:$LP_user to 100)LP : (print:$LP_user)
+<tw-storydata name="WS_test" startnode="3" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="E0A10E4D-1836-44AD-8073-D083304308DC" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="$lastPage" tags="" position="725,325" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="$nextPage" tags="" position="725,2325" size="100,100"></tw-passagedata><tw-passagedata pid="3" name="Hello World" tags="" position="600,200" size="100,100">(set:$LP_user to 100)LP : (print:$LP_user)
 
-歡迎來到《AI 荒原》！
-你即將展開冒險，並試著擊敗一路上出現的怪獸吧！
+歡迎來到《華新麗國》！感謝你願意前來協助~
+我國盛產一種名為&quot;歐菲斯&quot;的軟體生物
+但監控設備指出有多種生物服用過量&quot;歐菲斯&quot;後發生變異
+請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
 
-但請注意一旦選擇了、錯過了
-#就無法回頭！
+但請注意一旦做了選擇、錯過了道具
+#就無法回頭了！
 
 
 
@@ -49,11 +51,8 @@
 	)
 )
 
-(set: $messTable to (datamap:
-  &quot;資料理解&quot;, &quot;你更加了解這隻怪獸了！之後的攻擊變為2倍！&quot;,
-  &quot;資料清洗&quot;, &quot;這隻怪獸更乾淨你能看到他的弱點了！之後的攻擊變為2倍！&quot;,
-	)
-)
+&lt;!-- 資料前處理 array --&gt;
+(set: $messTable to (a:&quot;資料理解&quot;,&quot;資料清洗&quot;))
 
 (set: $descTable to (datamap:
   &quot;資料理解&quot;, &quot;仔細了解資料欄位、格式、邏輯。&quot;,
@@ -62,84 +61,7 @@
   &quot;DallE&quot;, &quot;當有影像生成型任務時建議使用。&quot;,
   &quot;OCR&quot;, &quot;光學影像辨識，當有影像轉文字型任務時建議使用。&quot;
 	)
-)
-
-
-</tw-passagedata><tw-passagedata pid="2" name="任務一:準備" tags="" position="600,325" size="100,100">LP : (print:$LP_user)
-
-你決定沿著一條資料流前進，
-走著走著，\
-(if: $inventory does not contain &quot;資料清洗&quot;)[\
-    (link: &quot;看到有個 &#39;資料清洗&#39; 的道具在地上，並把它撿起&quot;)[\
-    	(set: $inventory to it + (a: &quot;資料清洗&quot;))\
-	]\
-]
-突然手上的指示器開始警報！
-
-隨時遭受未知怪獸的攻擊
-請檢查好道具以應對突發狀況！
-
-
-
-[[繼續前進-&gt;任務一:開始]]
-
-[[道具欄]]
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="3" name="道具欄" tags="" position="725,200" size="100,100">
-(if: $inventory&#39;s length is not 0)[
-	你目前的道具有 : 
-	(for: each _item, ...$inventory)[
-    	(set:_count to  $countTable&#39;s _item)\
-        (set:_desc to  $descTable&#39;s _item)\
-        (set:_atk to  $atkTable&#39;s _item)\
-		[‧_item : 傷害 _atk；剩餘 _count 次；_desc]\
-	]\
- ]
-
-
-
-[[返回-&gt;$lastPage]]
-(replace: ?Sidebar)[]
-</tw-passagedata><tw-passagedata pid="4" name="$lastPage" tags="" position="725,325" size="100,100"></tw-passagedata><tw-passagedata pid="5" name="任務一:開始" tags="" position="600,450" size="100,100">(set:$LP_monster01 to 25)\
-LP : (print:$LP_user)
-
-💢【怪物出現！】
-(set:$monster01_weak to (a: &quot;資料清洗&quot;))
-怪獸名稱：EXCEL伊蟹鵝	LP : (print:$LP_monster01)
-
-你遇到了「EXCEL伊蟹鵝」，
-牠全身充滿亂碼、空值以及錯誤欄位！
-你想要如何反擊？
-
-
-
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster01_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務一:戰鬥&quot;)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
-]
-
-
-
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="6" name="任務一:戰鬥" tags="" position="600,575" size="100,100">(if: $LP_user &lt;= 5 and $LP_monster01 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+)</tw-passagedata><tw-passagedata pid="4" name="任務一:戰鬥" tags="" position="600,575" size="100,100">(if: $LP_user &lt;= 5 and $LP_monster01 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster01 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 5)$LP_user]
@@ -166,10 +88,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 EXCEL伊蟹鵝對你造成了 5 點傷害！
 ####################
-
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
@@ -183,9 +106,8 @@ EXCEL伊蟹鵝對你造成了 5 點傷害！
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster01_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
@@ -195,14 +117,38 @@ EXCEL伊蟹鵝對你造成了 5 點傷害！
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="7" name="任務一:結束" tags="" position="600,700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="5" name="任務一:準備" tags="" position="600,325" size="100,100">LP : (print:$LP_user)
+
+你決定沿著一條資料流前進，
+走著走著，\
+(if: $inventory does not contain &quot;資料清洗&quot;)[\
+    (link: &quot;看到有個 &#39;資料清洗&#39; 的道具在地上，並把它撿起&quot;)[\
+    	(set: $inventory to it + (a: &quot;資料清洗&quot;))\
+	]\
+]
+突然手上的指示器開始警報！
+
+隨時遭受未知怪獸的攻擊
+請檢查好道具以應對突發狀況！
+
+
+
+[[繼續前進-&gt;任務一:開始]]
+
+[[道具欄]]
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="6" name="任務一:結束" tags="" position="600,700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
 &lt;!-- 所有道具使用次數+1 --&gt;
 (if: $inventory&#39;s length is not 0 and $healed is not true)[\
 	(for: each _item, ...$inventory)[\
@@ -224,28 +170,18 @@ EXCEL伊蟹鵝對你造成了 5 點傷害！
  (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
 (set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="8" name="任務二:準備" tags="" position="600,825" size="100,100">LP : (print:$LP_user)
-
-不遠處傳來了陣陣踏地聲，
-手上的指示器再次響起開始警報！
-
-你繃緊了神經，專注著前方...
-
-
-
-[[繼續前進-&gt;任務二:開始]]
-
-[[道具欄]]
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="9" name="任務二:開始" tags="" position="600,950" size="100,100">(set:$LP_monster02 to 100)\
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="7" name="任務一:開始" tags="" position="600,450" size="100,100">(set:$LP_monster01 to 25)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
-(set:$monster02_weak to (a: &quot;ChatGPT&quot;))
-怪獸名稱：WORD砸瓦魯多	LP : (print:$LP_monster02)
+(set:$monster01_weak to (a: &quot;資料清洗&quot;))
+怪獸名稱：EXCEL伊蟹鵝	LP : (print:$LP_monster01)
 
-你遇到了「WORD砸瓦魯多」，
-牠是一種因為有太多文章、文獻、報告要比對並整理，因時間壓迫而進化的危險怪獸！
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+
+你遇到了「EXCEL伊蟹鵝」，
+牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
 
 
@@ -257,166 +193,25 @@ LP : (print:$LP_user)
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster02_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster01_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
                   (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
                   (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務二:戰鬥&quot;)\
+                  (goto: &quot;任務一:戰鬥&quot;)\
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="10" name="任務二:戰鬥" tags="" position="600,1075" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster02 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
-(else:)[\
-LP : (print:$LP_user)\
-(if:$LP_monster02 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
-
-💢【怪物出現！】
-
-怪獸名稱：WORD砸瓦魯多	LP : (if:$LP_monster02 &lt;= 0)[0](else:)[$LP_monster02]
-(if: $LP_monster02 &lt;= 0)[
-	你擊敗了WORD砸瓦魯多！！
-    從WORD砸瓦魯多身上掉落了 DallE...
-    (if: $inventory does not contain &quot;DallE&quot;)[\
-    (link: &quot;把它撿起&quot;)[\
-    	(set: $inventory to it + (a: &quot;DallE&quot;))\
-	]\
-]
-
-
-
-    [[繼續前進-&gt;任務二:結束]]
-    
-    [[道具欄]]
-    (set:$healed to false)
-]\
-(else:)[\
-####################
-$mess你對怪物造成了 $dmg 點傷害！
-$message
-WORD砸瓦魯多對你造成了 10 點傷害！
-####################
-
-牠是一種因為有太多文章、文獻要比對並整理，因時間壓迫而進化的危險怪獸！
-你想要如何反擊？
-
-
-
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster02_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務二:戰鬥&quot;)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
-]\
-]
-
-]
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="11" name="任務二:結束" tags="" position="600,1200" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
-&lt;!-- 所有道具使用次數+1 --&gt;
-(if: $inventory&#39;s length is not 0 and $healed is not true)[\
-	(for: each _item, ...$inventory)[\
-    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
-	]\
-    (set:$healed to true)\
- ]\
- 
- 恭喜你打敗了&quot;WORD砸瓦魯多&quot;~
- 但監控顯示許多地方都因未知原因的響起了警報！
- 我們已為你補給，希望你能繼續撐下去！
- 
- 
- 
- [[繼續前進-&gt;任務三:準備]]
- 
- [[道具欄]]
- 
- (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]
-(set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="12" name="任務三:準備" tags="" position="600,1325" size="100,100">LP : (print:$LP_user)
-
-指示器的警報似乎從來沒有停過！
-你索性的把它關掉了
-
-&quot;拋.....破.....&quot;
-奇怪的叫聲由遠至近
-巨大的風壓從上襲來
-
-你雙手護頭翻滾至一旁
-似乎恰巧躲過了第一擊...
-
-
-[[開始戰鬥-&gt;任務三:開始]]
-
-[[道具欄]]
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="13" name="任務三:開始" tags="" position="600,1450" size="100,100">(set:$LP_monster03 to 300)\
-LP : (print:$LP_user)
-
-💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
-怪獸名稱：PPT拋破蠅	LP : (print:$LP_monster03)
-
-你遇到了「PPT拋破蠅」，
-牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
-你想要如何反擊？
-
-
-
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務三:戰鬥&quot;)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務三:戰鬥]] ]
-]
-
-
-
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="14" name="任務三:戰鬥" tags="" position="600,1575" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="8" name="任務三:戰鬥" tags="" position="600,1575" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 15)$LP_user]
@@ -443,10 +238,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PPT拋破蠅對你造成了 15 點傷害！
 ####################
-
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -459,9 +255,8 @@ PPT拋破蠅對你造成了 15 點傷害！
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
@@ -478,7 +273,25 @@ PPT拋破蠅對你造成了 15 點傷害！
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="15" name="任務三:結束" tags="" position="600,1700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="9" name="任務三:準備" tags="" position="600,1325" size="100,100">LP : (print:$LP_user)
+
+指示器的警報似乎從來沒有停過！
+你索性的把它關掉了
+
+&quot;拋.....破.....&quot;
+奇怪的叫聲由遠至近
+巨大的風壓從上襲來
+
+你雙手護頭翻滾至一旁
+似乎恰巧躲過了第一擊...
+
+
+[[開始戰鬥-&gt;任務三:開始]]
+
+[[道具欄]]
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="10" name="任務三:結束" tags="" position="600,1700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
 &lt;!-- 所有道具使用次數+1 --&gt;
 (if: $inventory&#39;s length is not 0 and $healed is not true)[\
 	(for: each _item, ...$inventory)[\
@@ -504,91 +317,15 @@ PPT拋破蠅對你造成了 15 點傷害！
  (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
 (set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="16" name="任務四:準備" tags="" position="600,1825" size="100,100">LP : (print:$LP_user)
-
-你小心翼翼地往基地台前進
-一路上也碎念一下基地台為什麼這麼偏遠
-
-突然一股壓迫感襲來
-牠已無聲無息的到來...
-
-
-[[開始戰鬥-&gt;任務四:開始]]
-
-[[道具欄]]
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="17" name="任務四:開始" tags="" position="600,1950" size="100,100">(set:$LP_monster03 to 600)\
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="11" name="任務三:開始" tags="" position="600,1450" size="100,100">(set:$LP_monster03 to 300)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;OCR&quot;, &quot;資料理解&quot;))
-怪獸名稱：PDF霹靂a蝠	LP : (print:$LP_monster03)
-
-你遇到了「PDF霹靂a蝠」，
-霹笛蝠左邊的頭有文字護盾、右邊的頭圖案頭盔
-且一回合可以攻擊2次！
-你想要如何反擊？
-(set:$healed to false)\
-
-
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務四:戰鬥&quot;)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
-]
-
-
-
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="18" name="任務四:戰鬥" tags="" position="600,2075" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
-(else:)[\
-LP : (print:$LP_user)\
-(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 20)$LP_user]
-
-💢【怪物出現！】
-
-怪獸名稱：PDF霹靂a蝠	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
-(if: $LP_monster03 &lt;= 0)[
-	你擊敗了PDF霹靂a蝠...才怪！！
-    一個新的怪物從霹靂a蝠的身體中鑽出...
-	而你也偷偷趁著怪物鑽出的空檔回了點體力...(set: $LP_user to 100)
-&lt;!-- 所有道具使用次數+1 --&gt;
-(if: $inventory&#39;s length is not 0 and $healed is not true)[\
-	(for: each _item, ...$inventory)[\
-    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
-	]\
-    (set:$healed to true)\
- ]\
-(set: $is_know to 1)\
-(set: $is_clean to 1)\
-
-    [[繼續前進-&gt;任務五:開始一]]
-
-]\
-(else:)[\
-####################
-$mess你對怪物造成了 $dmg 點傷害！
-$message
-PDF霹靂a蝠對你造成了 20 點傷害！
-####################
-
+(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
+怪獸名稱：PPT拋破蠅	LP : (print:$LP_monster03)
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+你遇到了「PPT拋破蠅」，
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -601,35 +338,134 @@ PDF霹靂a蝠對你造成了 20 點傷害！
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
                   (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
                   (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務四:戰鬥&quot;)\
+                  (goto: &quot;任務三:戰鬥&quot;)\
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務三:戰鬥]] ]
+]
+
+
+
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="12" name="任務二:戰鬥" tags="" position="600,1075" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster02 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(else:)[\
+LP : (print:$LP_user)\
+(if:$LP_monster02 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
+
+💢【怪物出現！】
+
+怪獸名稱：WORD砸瓦魯多	LP : (if:$LP_monster02 &lt;= 0)[0](else:)[$LP_monster02]
+(if: $LP_monster02 &lt;= 0)[
+	你擊敗了WORD砸瓦魯多！！
+    從WORD砸瓦魯多身上掉落了 DallE...
+    (if: $inventory does not contain &quot;DallE&quot;)[\
+    (link: &quot;把它撿起&quot;)[\
+    	(set: $inventory to it + (a: &quot;DallE&quot;))\
+	]\
+]
+
+
+
+    [[繼續前進-&gt;任務二:結束]]
+    
+    [[道具欄]]
+    (set:$healed to false)
+]\
+(else:)[\
+####################
+$mess你對怪物造成了 $dmg 點傷害！
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
+WORD砸瓦魯多對你造成了 10 點傷害！
+####################
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+牠是一種因為有太多文章、文獻要比對並整理，因時間壓迫而進化的危險怪獸！
+你想要如何反擊？
+
+
+
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster02_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: &quot;任務二:戰鬥&quot;)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="19" name="任務五:開始一" tags="" position="600,2200" size="100,100">(set:$LP_monster03 to 1500)\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="13" name="任務二:準備" tags="" position="600,825" size="100,100">LP : (print:$LP_user)
+
+不遠處傳來了陣陣踏地聲，
+手上的指示器再次響起開始警報！
+
+你繃緊了神經，專注著前方...
+
+
+
+[[繼續前進-&gt;任務二:開始]]
+
+[[道具欄]]
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="14" name="任務二:結束" tags="" position="600,1200" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+&lt;!-- 所有道具使用次數+1 --&gt;
+(if: $inventory&#39;s length is not 0 and $healed is not true)[\
+	(for: each _item, ...$inventory)[\
+    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
+	]\
+    (set:$healed to true)\
+ ]\
+ 
+ 恭喜你打敗了&quot;WORD砸瓦魯多&quot;~
+ 但監控顯示許多地方都因未知原因的響起了警報！
+ 我們已為你補給，希望你能繼續撐下去！
+ 
+ 
+ 
+ [[繼續前進-&gt;任務三:準備]]
+ 
+ [[道具欄]]
+ 
+ (set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]
+(set: $is_know to 1)
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="15" name="任務二:開始" tags="" position="600,950" size="100,100">(set:$LP_monster02 to 100)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+(set:$monster02_weak to (a: &quot;ChatGPT&quot;))
+怪獸名稱：WORD砸瓦魯多	LP : (print:$LP_monster02)
 
-「歐菲斯真妖獸」出現了！，
-牠會在四種型態間切換，
-#趁牠還沒完全甦醒時，趕快對他進行一些前處理吧！
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+
+你遇到了「WORD砸瓦魯多」，
+牠是一種因為有太多文章、文獻、報告要比對並整理，因時間壓迫而進化的危險怪獸！
 你想要如何反擊？
 
 
@@ -641,72 +477,25 @@ LP : (print:$LP_user)
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster02_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
                   (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
                   (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: &quot;任務五:開始二&quot;)\
+                  (goto: &quot;任務二:戰鬥&quot;)\
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務五:開始二]] ]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="20" name="任務五:開始二" tags="" position="600,2325" size="100,100">LP : (print:$LP_user)
-
-💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
-
-「歐菲斯真妖獸」出現了！，
-牠會在四種型態間切換，
-#牠就快醒了！！！趕快對他進行一些前處理吧！
-
-####################
-$mess你對怪物造成了 $dmg 點傷害！
-$message
-歐菲斯真妖獸還沒醒！
-####################
-
-你想要如何反擊？
-
-
-(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: $nextPage)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
-]
-
-
-
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="21" name="$nextPage" tags="" position="725,2325" size="100,100"></tw-passagedata><tw-passagedata pid="22" name="任務五:excel" tags="" position="400,2450" size="100,100">(if:$LP_user &lt;= 5 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="16" name="任務五:excel" tags="" position="400,2450" size="100,100">(if:$LP_user &lt;= 5 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 5)$LP_user]
@@ -739,7 +528,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(伊蟹鵝型態)對你造成了 5 點傷害！
 ####################
 
@@ -755,9 +544,8 @@ $message
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
@@ -774,143 +562,7 @@ $message
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="23" name="任務五:word" tags="" position="525,2450" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
-(else:)[\
-LP : (print:$LP_user)\
-(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
-
-💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;ChatGPT&quot;))
-怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
-(if: $LP_monster03 &lt;= 0)[
-	你擊敗了歐菲斯真妖獸！！
-    
-    感謝你遊玩本遊戲！
-    希望你能在這次遊戲中
-    了解對應的工作任務所使用的AI工具~
-
-&lt;!-- 所有道具使用次數+1 --&gt;
-(if: $inventory&#39;s length is not 0)[\
-	(for: each _item, ...$inventory)[\
-    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
-	]\
- ]\
-(set: $is_know to 1)\
-(set: $is_clean to 1)\
-
-    [[回到開始-&gt;Hello World]]
-    
-    [[道具欄]]
-]\
-(else:)[\
-
-
-####################
-$mess你對怪物造成了 $dmg 點傷害！
-$message
-歐菲斯真妖獸(砸瓦魯多型態)對你造成了 10 點傷害！
-####################
-
-外表看起來像砸瓦魯多，難道可以使用對砸瓦魯多的攻擊方式？
-你想要如何反擊？
-
-
-(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: $nextPage)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
-]\
-]
-
-]
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="24" name="任務五:ppt" tags="" position="650,2450" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
-(else:)[\
-LP : (print:$LP_user)\
-(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 15)$LP_user]
-
-💢【怪物出現！】
-(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
-怪獸名稱：歐菲斯真妖獸(拋破蠅型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
-(if: $LP_monster03 &lt;= 0)[
-	你擊敗了歐菲斯真妖獸！！
-    
-    感謝你遊玩本遊戲！
-    希望你能在這次遊戲中
-    了解對應的工作任務所使用的AI工具~
-
-&lt;!-- 所有道具使用次數+1 --&gt;
-(if: $inventory&#39;s length is not 0)[\
-	(for: each _item, ...$inventory)[\
-    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
-	]\
- ]\
-(set: $is_know to 1)\
-(set: $is_clean to 1)\
-
-    [[回到開始-&gt;Hello World]]
-    
-    [[道具欄]]
-]\
-(else:)[\
-
-
-####################
-$mess你對怪物造成了 $dmg 點傷害！
-$message
-歐菲斯真妖獸(拋破蠅型態)對你造成了 15 點傷害！
-####################
-
-外表看起來像拋破蠅，難道可以使用對拋破蠅的攻擊方式？
-你想要如何反擊？
-
-
-(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
-(if: $inventory&#39;s length is not 0)[\
-	(set:_countAll to 0)
-	(for: each _item, ...$inventory)[\
-    	(set:_countAll to _countAll + $countTable&#39;s _item)\
-    	(if: $countTable&#39;s _item is not 0)[\
-              (link: &quot;使用 &quot; + _item)[\
-                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
-                  (set: _isWeak to ($monster03_weak contains _item))\
-                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
-                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
-                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
-                  (goto: $nextPage)\
-              ]\
-     	]
-	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
-]\
-]
-
-]
-
-(set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="25" name="任務五:pdf" tags="" position="775,2450" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="17" name="任務五:pdf" tags="" position="775,2450" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 20)$LP_user]
@@ -943,7 +595,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(霹靂a蝠型態)對你造成了 20 點傷害！
 ####################
 
@@ -959,9 +611,8 @@ $message
     	(if: $countTable&#39;s _item is not 0)[\
               (link: &quot;使用 &quot; + _item)[\
                   (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
-                  (if: _item is &quot;資料理解&quot;)[(set: $is_know to 2)]\
-                  (if: _item is &quot;資料清洗&quot;)[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable&#39;s _item)](else:)[(set:$message to &quot;&quot;)]\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
@@ -978,6 +629,355 @@ $message
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="18" name="任務五:ppt" tags="" position="650,2450" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(else:)[\
+LP : (print:$LP_user)\
+(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 15)$LP_user]
+
+💢【怪物出現！】
+(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
+怪獸名稱：歐菲斯真妖獸(拋破蠅型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+(if: $LP_monster03 &lt;= 0)[
+	你擊敗了歐菲斯真妖獸！！
+    
+    感謝你遊玩本遊戲！
+    希望你能在這次遊戲中
+    了解對應的工作任務所使用的AI工具~
+
+&lt;!-- 所有道具使用次數+1 --&gt;
+(if: $inventory&#39;s length is not 0)[\
+	(for: each _item, ...$inventory)[\
+    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
+	]\
+ ]\
+(set: $is_know to 1)\
+(set: $is_clean to 1)\
+
+    [[回到開始-&gt;Hello World]]
+    
+    [[道具欄]]
+]\
+(else:)[\
+
+
+####################
+$mess你對怪物造成了 $dmg 點傷害！
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
+歐菲斯真妖獸(拋破蠅型態)對你造成了 15 點傷害！
+####################
+
+外表看起來像拋破蠅，難道可以使用對拋破蠅的攻擊方式？
+你想要如何反擊？
+
+
+(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: $nextPage)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+]\
+]
+
+]
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="19" name="任務五:word" tags="" position="525,2450" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(else:)[\
+LP : (print:$LP_user)\
+(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
+
+💢【怪物出現！】
+(set:$monster03_weak to (a: &quot;ChatGPT&quot;))
+怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+(if: $LP_monster03 &lt;= 0)[
+	你擊敗了歐菲斯真妖獸！！
+    
+    感謝你遊玩本遊戲！
+    希望你能在這次遊戲中
+    了解對應的工作任務所使用的AI工具~
+
+&lt;!-- 所有道具使用次數+1 --&gt;
+(if: $inventory&#39;s length is not 0)[\
+	(for: each _item, ...$inventory)[\
+    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
+	]\
+ ]\
+(set: $is_know to 1)\
+(set: $is_clean to 1)\
+
+    [[回到開始-&gt;Hello World]]
+    
+    [[道具欄]]
+]\
+(else:)[\
+
+
+####################
+$mess你對怪物造成了 $dmg 點傷害！
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
+歐菲斯真妖獸(砸瓦魯多型態)對你造成了 10 點傷害！
+####################
+
+外表看起來像砸瓦魯多，難道可以使用對砸瓦魯多的攻擊方式？
+你想要如何反擊？
+
+
+(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: $nextPage)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+]\
+]
+
+]
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="20" name="任務五:開始一" tags="" position="600,2200" size="100,100">(set:$LP_monster03 to 1500)\
+LP : (print:$LP_user)
+
+💢【怪物出現！】
+(set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
+怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+
+「歐菲斯真妖獸」出現了！，
+牠會在四種型態間切換，
+#趁牠還沒完全甦醒時，趕快對他進行一些前處理吧！
+你想要如何反擊？
+
+
+
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: &quot;任務五:開始二&quot;)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務五:開始二]] ]
+]
+
+
+
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="21" name="任務五:開始二" tags="" position="600,2325" size="100,100">LP : (print:$LP_user)
+
+💢【怪物出現！】
+(set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
+怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+
+「歐菲斯真妖獸」出現了！，
+牠會在四種型態間切換，
+#牠就快醒了！！！趕快對他進行一些前處理吧！
+
+####################
+$mess你對怪物造成了 $dmg 點傷害！
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
+歐菲斯真妖獸還沒醒！
+####################
+
+你想要如何反擊？
+
+
+(set: $nextPage to (either: &quot;任務五:excel&quot;, &quot;任務五:word&quot;, &quot;任務五:ppt&quot;, &quot;任務五:pdf&quot;))
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: $nextPage)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+]
+
+
+
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="22" name="任務四:戰鬥" tags="" position="600,2075" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(else:)[\
+LP : (print:$LP_user)\
+(if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 20)$LP_user]
+
+💢【怪物出現！】
+
+怪獸名稱：PDF霹靂a蝠	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+(if: $LP_monster03 &lt;= 0)[
+	你擊敗了PDF霹靂a蝠...才怪！！
+    一個新的怪物從霹靂a蝠的身體中鑽出...
+	而你也偷偷趁著怪物鑽出的空檔回了點體力...(set: $LP_user to 100)
+&lt;!-- 所有道具使用次數+1 --&gt;
+(if: $inventory&#39;s length is not 0 and $healed is not true)[\
+	(for: each _item, ...$inventory)[\
+    	(set:$countTable&#39;s _item to  $countTable&#39;s _item + 1)\
+	]\
+    (set:$healed to true)\
+ ]\
+(set: $is_know to 1)\
+(set: $is_clean to 1)\
+(set: $message to &quot;你還沒進行資料前處理！&quot;)\
+
+    [[繼續前進-&gt;任務五:開始一]]
+
+]\
+(else:)[\
+####################
+$mess你對怪物造成了 $dmg 點傷害！
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
+PDF霹靂a蝠對你造成了 20 點傷害！
+####################
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
+你想要如何反擊？
+
+
+
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: &quot;任務四:戰鬥&quot;)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
+]\
+]
+
+]
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="23" name="任務四:準備" tags="" position="600,1825" size="100,100">LP : (print:$LP_user)
+
+你小心翼翼地往基地台前進
+一路上也碎念一下基地台為什麼這麼偏遠
+
+突然一股壓迫感襲來
+牠已無聲無息的到來...
+
+
+[[開始戰鬥-&gt;任務四:開始]]
+
+[[道具欄]]
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="24" name="任務四:開始" tags="" position="600,1950" size="100,100">(set:$LP_monster03 to 600)\
+LP : (print:$LP_user)
+
+💢【怪物出現！】
+(set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;OCR&quot;, &quot;資料理解&quot;))
+怪獸名稱：PDF霹靂a蝠	LP : (print:$LP_monster03)
+&lt;img
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+你遇到了「PDF霹靂a蝠」，
+霹笛蝠左邊的頭有文字護盾、右邊的頭圖案頭盔
+且一回合可以攻擊2次！
+你想要如何反擊？
+(set:$healed to false)\
+
+
+(if: $inventory&#39;s length is not 0)[\
+	(set:_countAll to 0)
+	(for: each _item, ...$inventory)[\
+    	(set:_countAll to _countAll + $countTable&#39;s _item)\
+    	(if: $countTable&#39;s _item is not 0)[\
+              (link: &quot;使用 &quot; + _item)[\
+                  (set: _baseDmg to $atkTable&#39;s _item * $is_know * $is_clean)\
+                  (if: _item is &quot;資料理解&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_know to 2)]\
+                  (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
+                  (set: _isWeak to ($monster03_weak contains _item))\
+                  (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
+                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
+                  (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
+                  (goto: &quot;任務四:戰鬥&quot;)\
+              ]\
+     	]
+	]
+    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
+]
+
+
+
+
+(set: $lastPage to (passage:)&#39;s name)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="25" name="道具欄" tags="" position="725,200" size="100,100">(if: $inventory&#39;s length is not 0)[
+	你目前的道具有 : 
+	(for: each _item, ...$inventory)[
+    	(set:_count to  $countTable&#39;s _item)\
+        (set:_desc to  $descTable&#39;s _item)\
+        (set:_atk to  $atkTable&#39;s _item)\
+		[‧_item : 傷害 _atk；剩餘 _count 次；_desc]\
+	]\
+ ]
+
+
+
+[[返回-&gt;$lastPage]]
 (replace: ?Sidebar)[]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!

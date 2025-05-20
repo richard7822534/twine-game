@@ -21,13 +21,15 @@ WS_test
 
 
 :: Hello World {"position":"600,200","size":"100,100"}
- (set:$LP_user to 100)LP : (print:$LP_user)
+(set:$LP_user to 100)LP : (print:$LP_user)
 
-歡迎來到《AI 荒原》！
-你即將展開冒險，並試著擊敗一路上出現的怪獸吧！
+歡迎來到《華新麗國》！感謝你願意前來協助~
+我國盛產一種名為"歐菲斯"的軟體生物
+但監控設備指出有多種生物服用過量"歐菲斯"後發生變異
+請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
 
-但請注意一旦選擇了、錯過了
-#就無法回頭！
+但請注意一旦做了選擇、錯過了道具
+#就無法回頭了！
 
 
 
@@ -61,11 +63,8 @@ WS_test
 	)
 )
 
-(set: $messTable to (datamap:
-  "資料理解", "你更加了解這隻怪獸了！之後的攻擊變為2倍！",
-  "資料清洗", "這隻怪獸更乾淨你能看到他的弱點了！之後的攻擊變為2倍！",
-	)
-)
+<!-- 資料前處理 array -->
+(set: $messTable to (a:"資料理解","資料清洗"))
 
 (set: $descTable to (datamap:
   "資料理解", "仔細了解資料欄位、格式、邏輯。",
@@ -75,9 +74,6 @@ WS_test
   "OCR", "光學影像辨識，當有影像轉文字型任務時建議使用。"
 	)
 )
-
-
-
 
 
 :: 任務一:戰鬥 {"position":"600,575","size":"100,100"}
@@ -108,10 +104,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 EXCEL伊蟹鵝對你造成了 5 點傷害！
 ####################
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height="500">
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
@@ -125,9 +122,8 @@ EXCEL伊蟹鵝對你造成了 5 點傷害！
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster01_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -137,7 +133,10 @@ EXCEL伊蟹鵝對你造成了 5 點傷害！
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務一:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [["沒有武器了...等死吧~"->任務一:戰鬥]] ]
 ]\
 ]
 
@@ -169,6 +168,7 @@ LP : (print:$LP_user)
 [[道具欄]]
 (set: $lastPage to (passage:)'s name)
 (replace: ?Sidebar)[]
+(set: $message to "你還沒進行資料前處理！")
 
 
 :: 任務一:結束 {"position":"600,700","size":"100,100"}
@@ -205,6 +205,9 @@ LP : (print:$LP_user)
 (set:$monster01_weak to (a: "資料清洗"))
 怪獸名稱：EXCEL伊蟹鵝	LP : (print:$LP_monster01)
 
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height="500">
+
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
@@ -218,9 +221,8 @@ LP : (print:$LP_user)
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster01_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -268,10 +270,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PPT拋破蠅對你造成了 15 點傷害！
 ####################
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png" width="400" height="500">
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -284,9 +287,8 @@ PPT拋破蠅對你造成了 15 點傷害！
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -325,6 +327,7 @@ LP : (print:$LP_user)
 [[道具欄]]
 (set: $lastPage to (passage:)'s name)
 (replace: ?Sidebar)[]
+(set: $message to "你還沒進行資料前處理！")
 
 
 :: 任務三:結束 {"position":"600,1700","size":"100,100"}
@@ -364,7 +367,8 @@ LP : (print:$LP_user)
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "DallE"))
 怪獸名稱：PPT拋破蠅	LP : (print:$LP_monster03)
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png" width="400" height="500">
 你遇到了「PPT拋破蠅」，
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
@@ -378,9 +382,8 @@ LP : (print:$LP_user)
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -428,10 +431,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 WORD砸瓦魯多對你造成了 10 點傷害！
 ####################
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height="500">
 牠是一種因為有太多文章、文獻要比對並整理，因時間壓迫而進化的危險怪獸！
 你想要如何反擊？
 
@@ -444,9 +448,8 @@ WORD砸瓦魯多對你造成了 10 點傷害！
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster02_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -481,6 +484,7 @@ LP : (print:$LP_user)
 [[道具欄]]
 (set: $lastPage to (passage:)'s name)
 (replace: ?Sidebar)[]
+(set: $message to "你還沒進行資料前處理！")
 
 
 :: 任務二:結束 {"position":"600,1200","size":"100,100"}
@@ -517,6 +521,9 @@ LP : (print:$LP_user)
 (set:$monster02_weak to (a: "ChatGPT"))
 怪獸名稱：WORD砸瓦魯多	LP : (print:$LP_monster02)
 
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height="500">
+
 你遇到了「WORD砸瓦魯多」，
 牠是一種因為有太多文章、文獻、報告要比對並整理，因時間壓迫而進化的危險怪獸！
 你想要如何反擊？
@@ -530,9 +537,8 @@ LP : (print:$LP_user)
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster02_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster02 to $LP_monster02 - _baseDmg*2)](else:)[(set: $LP_monster02 to $LP_monster02 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -586,7 +592,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(伊蟹鵝型態)對你造成了 5 點傷害！
 ####################
 
@@ -602,9 +608,8 @@ $message
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -658,7 +663,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(霹靂a蝠型態)對你造成了 20 點傷害！
 ####################
 
@@ -674,9 +679,8 @@ $message
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -730,7 +734,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(拋破蠅型態)對你造成了 15 點傷害！
 ####################
 
@@ -746,9 +750,8 @@ $message
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -802,7 +805,7 @@ LP : (print:$LP_user)\
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸(砸瓦魯多型態)對你造成了 10 點傷害！
 ####################
 
@@ -818,9 +821,8 @@ $message
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -862,9 +864,8 @@ LP : (print:$LP_user)
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -897,7 +898,7 @@ LP : (print:$LP_user)
 
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 歐菲斯真妖獸還沒醒！
 ####################
 
@@ -912,9 +913,8 @@ $message
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -956,6 +956,7 @@ LP : (print:$LP_user)\
  ]\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
+(set: $message to "你還沒進行資料前處理！")\
 
     [[繼續前進->任務五:開始一]]
 
@@ -963,10 +964,11 @@ LP : (print:$LP_user)\
 (else:)[\
 ####################
 $mess你對怪物造成了 $dmg 點傷害！
-$message
+$message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PDF霹靂a蝠對你造成了 20 點傷害！
 ####################
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height="500">
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -979,9 +981,8 @@ PDF霹靂a蝠對你造成了 20 點傷害！
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！")](else:)[(set: $mess to "")]\
@@ -1016,6 +1017,7 @@ LP : (print:$LP_user)
 [[道具欄]]
 (set: $lastPage to (passage:)'s name)
 (replace: ?Sidebar)[]
+(set: $message to "你還沒進行資料前處理！")
 
 
 :: 任務四:開始 {"position":"600,1950","size":"100,100"}
@@ -1025,7 +1027,8 @@ LP : (print:$LP_user)
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "OCR", "資料理解"))
 怪獸名稱：PDF霹靂a蝠	LP : (print:$LP_monster03)
-
+<img
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height="500">
 你遇到了「PDF霹靂a蝠」，
 霹笛蝠左邊的頭有文字護盾、右邊的頭圖案頭盔
 且一回合可以攻擊2次！
@@ -1040,9 +1043,8 @@ LP : (print:$LP_user)
     	(if: $countTable's _item is not 0)[\
               (link: "使用 " + _item)[\
                   (set: _baseDmg to $atkTable's _item * $is_know * $is_clean)\
-                  (if: _item is "資料理解")[(set: $is_know to 2)]\
-                  (if: _item is "資料清洗")[(set: $is_clean to 2)]\
-                  (if: $messTable contains _item)[(set: $message to $messTable's _item)](else:)[(set:$message to "")]\
+                  (if: _item is "資料理解")[(set: $message to "你已進行了資料前處理！")\(set: $is_know to 2)]\
+                  (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster03_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster03 to $LP_monster03 - _baseDmg*2)](else:)[(set: $LP_monster03 to $LP_monster03 - _baseDmg)]\
                   (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
@@ -1063,7 +1065,6 @@ LP : (print:$LP_user)
 
 
 :: 道具欄 {"position":"725,200","size":"100,100"}
-
 (if: $inventory's length is not 0)[
 	你目前的道具有 : 
 	(for: each _item, ...$inventory)[
@@ -1078,4 +1079,3 @@ LP : (print:$LP_user)
 
 [[返回->$lastPage]]
 (replace: ?Sidebar)[]
-
