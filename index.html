@@ -12,10 +12,11 @@
 <tw-storydata name="WS_test" startnode="3" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="E0A10E4D-1836-44AD-8073-D083304308DC" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="$lastPage" tags="" position="725,325" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="$nextPage" tags="" position="725,2325" size="100,100"></tw-passagedata><tw-passagedata pid="3" name="Hello World" tags="" position="600,200" size="100,100">(set:$LP_user to 100)LP : (print:$LP_user)
 
 歡迎來到《華新麗國》！感謝你願意前來協助~
-我國盛產一種名為&quot;歐菲斯&quot;的軟體生物
-但監控設備指出有多種生物服用過量&quot;歐菲斯&quot;後發生變異
-請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
+我國盛產一種名為&quot;歐肥斯&quot;的軟體生物
+但監控設備指出有多種生物服用過量&quot;歐肥斯&quot;後發生變異
 
+
+請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
 但請注意一旦做了選擇、錯過了道具
 #就無法回頭了！
 
@@ -55,8 +56,8 @@
 (set: $messTable to (a:&quot;資料理解&quot;,&quot;資料清洗&quot;))
 
 (set: $descTable to (datamap:
-  &quot;資料理解&quot;, &quot;仔細了解資料欄位、格式、邏輯。&quot;,
-  &quot;資料清洗&quot;, &quot;解決資料中的空值、錯誤值、離群值。&quot;,
+  &quot;資料理解&quot;, &quot;資料前處理必做之一，仔細了解資料欄位、格式、邏輯，使其他方法更有用。&quot;,
+  &quot;資料清洗&quot;, &quot;資料前處理必做之一，解決資料中的空值、錯誤值、離群值，使其他方法更有用。&quot;,
   &quot;ChatGPT&quot;, &quot;當有文字型任務時建議使用。&quot;,
   &quot;DallE&quot;, &quot;當有影像生成型任務時建議使用。&quot;,
   &quot;OCR&quot;, &quot;光學影像辨識，當有影像轉文字型任務時建議使用。&quot;
@@ -73,9 +74,9 @@ LP : (print:$LP_user)\
 	你擊敗了EXCEL伊蟹鵝！！
     從EXCEL伊蟹鵝身上掉落了ChatGPT...
     (if: $inventory does not contain &quot;ChatGPT&quot;)[\
-    (link: &quot;把它撿起&quot;)[\
+    &lt;a style=&quot;color: orange;&quot;&gt;(link: &quot;把它撿起&quot;)[\
     	(set: $inventory to it + (a: &quot;ChatGPT&quot;))\
-	]\
+	]&lt;/a&gt;\
 ]
 
 
@@ -130,11 +131,11 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 (replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="5" name="任務一:準備" tags="" position="600,325" size="100,100">LP : (print:$LP_user)
 
 你決定沿著一條資料流前進，
-走著走著，\
+走著走著，看到 &#39;資料清洗&#39; 掉在地上\
 (if: $inventory does not contain &quot;資料清洗&quot;)[\
-    (link: &quot;看到有個 &#39;資料清洗&#39; 的道具在地上，並把它撿起&quot;)[\
+    &lt;a style=&quot;color: orange;&quot;&gt; (link: &quot;，並把它撿起&quot;)[\
     	(set: $inventory to it + (a: &quot;資料清洗&quot;))\
-	]\
+	]&lt;/a&gt;\
 ]
 突然手上的指示器開始警報！
 
@@ -142,8 +143,10 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 請檢查好道具以應對突發狀況！
 
 
+(if: $inventory contains &quot;資料清洗&quot;)[\
+    [[繼續前進-&gt;任務一:開始]]
+]
 
-[[繼續前進-&gt;任務一:開始]]
 
 [[道具欄]]
 (set: $lastPage to (passage:)&#39;s name)
@@ -197,7 +200,7 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
                   (if: _item is &quot;資料清洗&quot;)[(set: $message to &quot;你已進行了資料前處理！&quot;)\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster01_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to &quot;你使用了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
+                  (if: _isWeak)[(set: $mess to &quot;你攻擊了他的弱點！造成2倍傷害！&quot;)](else:)[(set: $mess to &quot;&quot;)]\
                   (set:$countTable&#39;s _item to $countTable&#39;s _item - 1)\
                   (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
                   (goto: &quot;任務一:戰鬥&quot;)\
@@ -223,9 +226,9 @@ LP : (print:$LP_user)\
 	你擊敗了PPT拋破蠅！！
     從PPT拋破蠅身上掉落了 OCR...
     (if: $inventory does not contain &quot;OCR&quot;)[\
-    (link: &quot;把它撿起&quot;)[\
+    &lt;a style=&quot;color: orange;&quot;&gt;(link: &quot;把它撿起&quot;)[\
     	(set: $inventory to it + (a: &quot;OCR&quot;))\
-	]\
+	]&lt;/a&gt;\
 ]
 
 
@@ -368,9 +371,9 @@ LP : (print:$LP_user)\
 	你擊敗了WORD砸瓦魯多！！
     從WORD砸瓦魯多身上掉落了 DallE...
     (if: $inventory does not contain &quot;DallE&quot;)[\
-    (link: &quot;把它撿起&quot;)[\
+    &lt;a style=&quot;color: orange;&quot;&gt;(link: &quot;把它撿起&quot;)[\
     	(set: $inventory to it + (a: &quot;DallE&quot;))\
-	]\
+	]&lt;/a&gt;\
 ]
 
 
@@ -519,7 +522,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始-&gt;Hello World]]
+    &lt;a href=&quot;https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u&quot; target=&quot;_blank&quot; style=&quot;color: orange&quot;;&gt;點我填寫回饋問卷&lt;/a&gt;
     
     [[道具欄]]
 ]\
@@ -586,7 +589,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始-&gt;Hello World]]
+    &lt;a href=&quot;https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u&quot; target=&quot;_blank&quot; style=&quot;color: orange&quot;;&gt;點我填寫回饋問卷&lt;/a&gt;
     
     [[道具欄]]
 ]\
@@ -653,7 +656,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始-&gt;Hello World]]
+    &lt;a href=&quot;https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u&quot; target=&quot;_blank&quot; style=&quot;color: orange&quot;;&gt;點我填寫回饋問卷&lt;/a&gt;
     
     [[道具欄]]
 ]\
@@ -720,7 +723,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始-&gt;Hello World]]
+    &lt;a href=&quot;https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u&quot; target=&quot;_blank&quot; style=&quot;color: orange&quot;;&gt;點我填寫回饋問卷&lt;/a&gt;
     
     [[道具欄]]
 ]\

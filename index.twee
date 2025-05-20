@@ -24,10 +24,11 @@ WS_test
 (set:$LP_user to 100)LP : (print:$LP_user)
 
 歡迎來到《華新麗國》！感謝你願意前來協助~
-我國盛產一種名為"歐菲斯"的軟體生物
-但監控設備指出有多種生物服用過量"歐菲斯"後發生變異
-請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
+我國盛產一種名為"歐肥斯"的軟體生物
+但監控設備指出有多種生物服用過量"歐肥斯"後發生變異
 
+
+請你立刻啟程，並試著擊敗一路上出現的怪獸吧！
 但請注意一旦做了選擇、錯過了道具
 #就無法回頭了！
 
@@ -67,8 +68,8 @@ WS_test
 (set: $messTable to (a:"資料理解","資料清洗"))
 
 (set: $descTable to (datamap:
-  "資料理解", "仔細了解資料欄位、格式、邏輯。",
-  "資料清洗", "解決資料中的空值、錯誤值、離群值。",
+  "資料理解", "資料前處理必做之一，仔細了解資料欄位、格式、邏輯，使其他方法更有用。",
+  "資料清洗", "資料前處理必做之一，解決資料中的空值、錯誤值、離群值，使其他方法更有用。",
   "ChatGPT", "當有文字型任務時建議使用。",
   "DallE", "當有影像生成型任務時建議使用。",
   "OCR", "光學影像辨識，當有影像轉文字型任務時建議使用。"
@@ -89,9 +90,9 @@ LP : (print:$LP_user)\
 	你擊敗了EXCEL伊蟹鵝！！
     從EXCEL伊蟹鵝身上掉落了ChatGPT...
     (if: $inventory does not contain "ChatGPT")[\
-    (link: "把它撿起")[\
+    <a style="color: orange;">(link: "把它撿起")[\
     	(set: $inventory to it + (a: "ChatGPT"))\
-	]\
+	]</a>\
 ]
 
 
@@ -150,11 +151,11 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊
 LP : (print:$LP_user)
 
 你決定沿著一條資料流前進，
-走著走著，\
+走著走著，看到 '資料清洗' 掉在地上\
 (if: $inventory does not contain "資料清洗")[\
-    (link: "看到有個 '資料清洗' 的道具在地上，並把它撿起")[\
+    <a style="color: orange;"> (link: "，並把它撿起")[\
     	(set: $inventory to it + (a: "資料清洗"))\
-	]\
+	]</a>\
 ]
 突然手上的指示器開始警報！
 
@@ -162,8 +163,10 @@ LP : (print:$LP_user)
 請檢查好道具以應對突發狀況！
 
 
+(if: $inventory contains "資料清洗")[\
+    [[繼續前進->任務一:開始]]
+]
 
-[[繼續前進->任務一:開始]]
 
 [[道具欄]]
 (set: $lastPage to (passage:)'s name)
@@ -225,7 +228,7 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊
                   (if: _item is "資料清洗")[(set: $message to "你已進行了資料前處理！")\(set: $is_clean to 2)]\
                   (set: _isWeak to ($monster01_weak contains _item))\
                   (if: _isWeak)[(set: $LP_monster01 to $LP_monster01 - _baseDmg*2)](else:)[(set: $LP_monster01 to $LP_monster01 - _baseDmg)]\
-                  (if: _isWeak)[(set: $mess to "你使用了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
+                  (if: _isWeak)[(set: $mess to "你攻擊了他的弱點！造成2倍傷害！")](else:)[(set: $mess to "")]\
                   (set:$countTable's _item to $countTable's _item - 1)\
                   (if: _isWeak)[(set: $dmg to _baseDmg*2)](else:)[(set: $dmg to _baseDmg)]\
                   (goto: "任務一:戰鬥")\
@@ -255,9 +258,9 @@ LP : (print:$LP_user)\
 	你擊敗了PPT拋破蠅！！
     從PPT拋破蠅身上掉落了 OCR...
     (if: $inventory does not contain "OCR")[\
-    (link: "把它撿起")[\
+    <a style="color: orange;">(link: "把它撿起")[\
     	(set: $inventory to it + (a: "OCR"))\
-	]\
+	]</a>\
 ]
 
 
@@ -416,9 +419,9 @@ LP : (print:$LP_user)\
 	你擊敗了WORD砸瓦魯多！！
     從WORD砸瓦魯多身上掉落了 DallE...
     (if: $inventory does not contain "DallE")[\
-    (link: "把它撿起")[\
+    <a style="color: orange;">(link: "把它撿起")[\
     	(set: $inventory to it + (a: "DallE"))\
-	]\
+	]</a>\
 ]
 
 
@@ -583,7 +586,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始->Hello World]]
+    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u" target="_blank" style="color: orange";>點我填寫回饋問卷</a>
     
     [[道具欄]]
 ]\
@@ -654,7 +657,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始->Hello World]]
+    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u" target="_blank" style="color: orange";>點我填寫回饋問卷</a>
     
     [[道具欄]]
 ]\
@@ -725,7 +728,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始->Hello World]]
+    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u" target="_blank" style="color: orange";>點我填寫回饋問卷</a>
     
     [[道具欄]]
 ]\
@@ -796,7 +799,7 @@ LP : (print:$LP_user)\
 (set: $is_know to 1)\
 (set: $is_clean to 1)\
 
-    [[回到開始->Hello World]]
+    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7WuHl5q7F0aAK5TGLng3tfIW5xAEqJRKpT4WRPpX7jJUQ1hOOTg2RzNVTzU0V0ZTWE1ZWkhUQTlHOC4u" target="_blank" style="color: orange";>點我填寫回饋問卷</a>
     
     [[道具欄]]
 ]\
