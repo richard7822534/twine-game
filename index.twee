@@ -16,7 +16,7 @@ WS_test
 
 
 
-:: $nextPage {"position":"725,2325","size":"100,100"}
+:: $nextPage {"position":"600,2575","size":"100,100"}
 
 
 
@@ -85,7 +85,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 
-怪獸名稱：EXCEL伊蟹鵝	LP : (if:$LP_monster01 <= 0)[0](else:)[$LP_monster01]
+怪獸名稱：EXCEL伊蟹鵝			LP : (if:$LP_monster01 <= 0)[0](else:)[$LP_monster01]
 (if: $LP_monster01 <= 0)[
 	你擊敗了EXCEL伊蟹鵝！！
     從EXCEL伊蟹鵝身上掉落了ChatGPT...
@@ -109,7 +109,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 EXCEL伊蟹鵝對你造成了 5 點傷害！
 ####################
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height=auto>
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
@@ -137,7 +137,9 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊
     (if: _countAll is 0)[\
       (set: $dmg to 0)\
       (set: $message to "")\
-      [["沒有武器了...等死吧~"->任務一:戰鬥]] ]
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -206,10 +208,10 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster01_weak to (a: "資料清洗"))
-怪獸名稱：EXCEL伊蟹鵝	LP : (print:$LP_monster01)
+怪獸名稱：EXCEL伊蟹鵝			LP : (print:$LP_monster01)
 
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png" width="400" height=auto>
 
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
@@ -235,7 +237,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務一:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]
 
 
@@ -253,7 +260,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 
-怪獸名稱：PPT拋破蠅	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：PPT拋破蠅			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了PPT拋破蠅！！
     從PPT拋破蠅身上掉落了 OCR...
@@ -277,7 +284,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PPT拋破蠅對你造成了 15 點傷害！
 ####################
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png" width="400" height=auto>
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -301,7 +308,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務三:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -369,9 +381,9 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "DallE"))
-怪獸名稱：PPT拋破蠅	LP : (print:$LP_monster03)
+怪獸名稱：PPT拋破蠅			LP : (print:$LP_monster03)
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png" width="400" height=auto>
 你遇到了「PPT拋破蠅」，
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
@@ -396,7 +408,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務三:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]
 
 
@@ -414,7 +431,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 
-怪獸名稱：WORD砸瓦魯多	LP : (if:$LP_monster02 <= 0)[0](else:)[$LP_monster02]
+怪獸名稱：WORD砸瓦魯多			LP : (if:$LP_monster02 <= 0)[0](else:)[$LP_monster02]
 (if: $LP_monster02 <= 0)[
 	你擊敗了WORD砸瓦魯多！！
     從WORD砸瓦魯多身上掉落了 DallE...
@@ -438,7 +455,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 WORD砸瓦魯多對你造成了 10 點傷害！
 ####################
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height=auto>
 牠是一種因為有太多文章、文獻要比對並整理，因時間壓迫而進化的危險怪獸！
 你想要如何反擊？
 
@@ -462,7 +479,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務二:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -522,10 +544,10 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster02_weak to (a: "ChatGPT"))
-怪獸名稱：WORD砸瓦魯多	LP : (print:$LP_monster02)
+怪獸名稱：WORD砸瓦魯多			LP : (print:$LP_monster02)
 
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png" width="400" height=auto>
 
 你遇到了「WORD砸瓦魯多」，
 牠是一種因為有太多文章、文獻、報告要比對並整理，因時間壓迫而進化的危險怪獸！
@@ -551,8 +573,14 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務二:戰鬥]] ]
-]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
+  ]
+
 
 
 
@@ -569,7 +597,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "資料清洗", "ChatGPT"))
-怪獸名稱：歐菲斯真妖獸(伊蟹鵝型態)	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(伊蟹鵝型態)			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -622,7 +650,12 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$nextPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -640,7 +673,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "OCR"))
-怪獸名稱：歐菲斯真妖獸(霹靂a蝠型態)	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(霹靂a蝠型態)			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -693,7 +726,12 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$nextPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -711,7 +749,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "DallE"))
-怪獸名稱：歐菲斯真妖獸(拋破蠅型態)	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(拋破蠅型態)			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -764,7 +802,12 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$nextPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -782,7 +825,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT"))
-怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -835,7 +878,12 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$nextPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -851,7 +899,7 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "資料清洗", "資料理解"))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+怪獸名稱：歐菲斯真妖獸			LP : (print:$LP_monster03)
 
 「歐菲斯真妖獸」出現了！，
 牠會在四種型態間切換，
@@ -878,7 +926,12 @@ LP : (print:$LP_user)
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務五:開始二]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]
 
 
@@ -893,7 +946,7 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "資料清洗", "資料理解"))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+怪獸名稱：歐菲斯真妖獸			LP : (print:$LP_monster03)
 
 「歐菲斯真妖獸」出現了！，
 牠會在四種型態間切換，
@@ -927,7 +980,12 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$nextPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]
 
 
@@ -945,7 +1003,7 @@ LP : (print:$LP_user)\
 
 💢【怪物出現！】
 
-怪獸名稱：PDF霹靂a蝠	LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
+怪獸名稱：PDF霹靂a蝠			LP : (if:$LP_monster03 <= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 <= 0)[
 	你擊敗了PDF霹靂a蝠...才怪！！
     一個新的怪物從霹靂a蝠的身體中鑽出...
@@ -971,7 +1029,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PDF霹靂a蝠對你造成了 20 點傷害！
 ####################
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height=auto>
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -995,7 +1053,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務四:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]\
 ]
 
@@ -1029,9 +1092,9 @@ LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: "ChatGPT", "OCR", "資料理解"))
-怪獸名稱：PDF霹靂a蝠	LP : (print:$LP_monster03)
+怪獸名稱：PDF霹靂a蝠			LP : (print:$LP_monster03)
 <img
-src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height="500">
+src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png" width="400" height=auto>
 你遇到了「PDF霹靂a蝠」，
 霹笛蝠左邊的頭有文字護盾、右邊的頭圖案頭盔
 且一回合可以攻擊2次！
@@ -1057,7 +1120,12 @@ src="https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [["沒有武器了...等死吧~"->任務四:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to "")\
+      [[沒有武器了...等死吧~->$lastPage]]
+      [[重頭來過->Hello World]]
+    ]
 ]
 
 

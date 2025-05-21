@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play WS_test.</tw-noscript></noscript></tw-story>
-<tw-storydata name="WS_test" startnode="3" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="E0A10E4D-1836-44AD-8073-D083304308DC" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="$lastPage" tags="" position="725,325" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="$nextPage" tags="" position="725,2325" size="100,100"></tw-passagedata><tw-passagedata pid="3" name="Hello World" tags="" position="600,200" size="100,100">(set:$LP_user to 100)LP : (print:$LP_user)
+<tw-storydata name="WS_test" startnode="2" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="E0A10E4D-1836-44AD-8073-D083304308DC" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="$lastPage" tags="" position="725,325" size="100,100"></tw-passagedata><tw-passagedata pid="2" name="Hello World" tags="" position="600,200" size="100,100">(set:$LP_user to 100)LP : (print:$LP_user)
 
 歡迎來到《華新麗國》！感謝你願意前來協助~
 我國盛產一種名為&quot;歐肥斯&quot;的軟體生物
@@ -62,14 +62,14 @@
   &quot;DallE&quot;, &quot;當有影像生成型任務時建議使用。&quot;,
   &quot;OCR&quot;, &quot;光學影像辨識，當有影像轉文字型任務時建議使用。&quot;
 	)
-)</tw-passagedata><tw-passagedata pid="4" name="任務一:戰鬥" tags="" position="600,575" size="100,100">(if: $LP_user &lt;= 5 and $LP_monster01 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+)</tw-passagedata><tw-passagedata pid="3" name="任務一:戰鬥" tags="" position="600,575" size="100,100">(if: $LP_user &lt;= 5 and $LP_monster01 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster01 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 5)$LP_user]
 
 💢【怪物出現！】
 
-怪獸名稱：EXCEL伊蟹鵝	LP : (if:$LP_monster01 &lt;= 0)[0](else:)[$LP_monster01]
+怪獸名稱：EXCEL伊蟹鵝			LP : (if:$LP_monster01 &lt;= 0)[0](else:)[$LP_monster01]
 (if: $LP_monster01 &lt;= 0)[
 	你擊敗了EXCEL伊蟹鵝！！
     從EXCEL伊蟹鵝身上掉落了ChatGPT...
@@ -93,7 +93,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 EXCEL伊蟹鵝對你造成了 5 點傷害！
 ####################
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=auto&gt;
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
 你想要如何反擊？
@@ -121,14 +121,16 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
     (if: _countAll is 0)[\
       (set: $dmg to 0)\
       (set: $message to &quot;&quot;)\
-      [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="5" name="任務一:準備" tags="" position="600,325" size="100,100">LP : (print:$LP_user)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="4" name="任務一:準備" tags="" position="600,325" size="100,100">LP : (print:$LP_user)
 
 你決定沿著一條資料流前進，
 走著走著，看到 &#39;資料清洗&#39; 掉在地上\
@@ -151,7 +153,7 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 [[道具欄]]
 (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
-(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="6" name="任務一:結束" tags="" position="600,700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="5" name="任務一:結束" tags="" position="600,700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
 &lt;!-- 所有道具使用次數+1 --&gt;
 (if: $inventory&#39;s length is not 0 and $healed is not true)[\
 	(for: each _item, ...$inventory)[\
@@ -173,15 +175,15 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
  (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
 (set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="7" name="任務一:開始" tags="" position="600,450" size="100,100">(set:$LP_monster01 to 25)\
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="6" name="任務一:開始" tags="" position="600,450" size="100,100">(set:$LP_monster01 to 25)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster01_weak to (a: &quot;資料清洗&quot;))
-怪獸名稱：EXCEL伊蟹鵝	LP : (print:$LP_monster01)
+怪獸名稱：EXCEL伊蟹鵝			LP : (print:$LP_monster01)
 
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/伊格蟹鵝.png&quot; width=&quot;400&quot; height=auto&gt;
 
 你遇到了「EXCEL伊蟹鵝」，
 牠全身充滿亂碼、空值以及錯誤欄位！
@@ -207,21 +209,26 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務一:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="8" name="任務三:戰鬥" tags="" position="600,1575" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="7" name="任務三:戰鬥" tags="" position="600,1575" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 15)$LP_user]
 
 💢【怪物出現！】
 
-怪獸名稱：PPT拋破蠅	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：PPT拋破蠅			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了PPT拋破蠅！！
     從PPT拋破蠅身上掉落了 OCR...
@@ -245,7 +252,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PPT拋破蠅對你造成了 15 點傷害！
 ####################
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/爆破鷹.png&quot; width=&quot;400&quot; height=auto&gt;
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -269,14 +276,19 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務三:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="9" name="任務三:準備" tags="" position="600,1325" size="100,100">LP : (print:$LP_user)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="8" name="任務三:準備" tags="" position="600,1325" size="100,100">LP : (print:$LP_user)
 
 指示器的警報似乎從來沒有停過！
 你索性的把它關掉了
@@ -294,7 +306,7 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 [[道具欄]]
 (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
-(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="10" name="任務三:結束" tags="" position="600,1700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="9" name="任務三:結束" tags="" position="600,1700" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
 &lt;!-- 所有道具使用次數+1 --&gt;
 (if: $inventory&#39;s length is not 0 and $healed is not true)[\
 	(for: each _item, ...$inventory)[\
@@ -320,14 +332,14 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
  (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
 (set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="11" name="任務三:開始" tags="" position="600,1450" size="100,100">(set:$LP_monster03 to 300)\
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="10" name="任務三:開始" tags="" position="600,1450" size="100,100">(set:$LP_monster03 to 300)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
-怪獸名稱：PPT拋破蠅	LP : (print:$LP_monster03)
+怪獸名稱：PPT拋破蠅			LP : (print:$LP_monster03)
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/拋破蠅.png&quot; width=&quot;400&quot; height=auto&gt;
 你遇到了「PPT拋破蠅」，
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
@@ -352,21 +364,26 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務三:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="12" name="任務二:戰鬥" tags="" position="600,1075" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster02 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="11" name="任務二:戰鬥" tags="" position="600,1075" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster02 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster02 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
 
 💢【怪物出現！】
 
-怪獸名稱：WORD砸瓦魯多	LP : (if:$LP_monster02 &lt;= 0)[0](else:)[$LP_monster02]
+怪獸名稱：WORD砸瓦魯多			LP : (if:$LP_monster02 &lt;= 0)[0](else:)[$LP_monster02]
 (if: $LP_monster02 &lt;= 0)[
 	你擊敗了WORD砸瓦魯多！！
     從WORD砸瓦魯多身上掉落了 DallE...
@@ -390,7 +407,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 WORD砸瓦魯多對你造成了 10 點傷害！
 ####################
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=auto&gt;
 牠是一種因為有太多文章、文獻要比對並整理，因時間壓迫而進化的危險怪獸！
 你想要如何反擊？
 
@@ -414,14 +431,19 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="13" name="任務二:準備" tags="" position="600,825" size="100,100">LP : (print:$LP_user)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="12" name="任務二:準備" tags="" position="600,825" size="100,100">LP : (print:$LP_user)
 
 不遠處傳來了陣陣踏地聲，
 手上的指示器再次響起開始警報！
@@ -435,7 +457,7 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 [[道具欄]]
 (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
-(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="14" name="任務二:結束" tags="" position="600,1200" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="13" name="任務二:結束" tags="" position="600,1200" size="100,100">LP : (print:$LP_user) --&gt; (set:$LP_user to 100)$LP_user
 &lt;!-- 所有道具使用次數+1 --&gt;
 (if: $inventory&#39;s length is not 0 and $healed is not true)[\
 	(for: each _item, ...$inventory)[\
@@ -457,15 +479,15 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
  (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
 (set: $is_know to 1)
-(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="15" name="任務二:開始" tags="" position="600,950" size="100,100">(set:$LP_monster02 to 100)\
+(set: $is_clean to 1)</tw-passagedata><tw-passagedata pid="14" name="任務二:開始" tags="" position="600,950" size="100,100">(set:$LP_monster02 to 100)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster02_weak to (a: &quot;ChatGPT&quot;))
-怪獸名稱：WORD砸瓦魯多	LP : (print:$LP_monster02)
+怪獸名稱：WORD砸瓦魯多			LP : (print:$LP_monster02)
 
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/砸瓦魯多.png&quot; width=&quot;400&quot; height=auto&gt;
 
 你遇到了「WORD砸瓦魯多」，
 牠是一種因為有太多文章、文獻、報告要比對並整理，因時間壓迫而進化的危險怪獸！
@@ -491,21 +513,27 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務二:戰鬥]] ]
-]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
+  ]
+
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="16" name="任務五:excel" tags="" position="400,2450" size="100,100">(if:$LP_user &lt;= 5 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="15" name="任務五:excel" tags="" position="400,2450" size="100,100">(if:$LP_user &lt;= 5 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 5)$LP_user]
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;ChatGPT&quot;))
-怪獸名稱：歐菲斯真妖獸(伊蟹鵝型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(伊蟹鵝型態)			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -558,21 +586,26 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$nextPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="17" name="任務五:pdf" tags="" position="775,2450" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="16" name="任務五:pdf" tags="" position="775,2450" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 20)$LP_user]
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;OCR&quot;))
-怪獸名稱：歐菲斯真妖獸(霹靂a蝠型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(霹靂a蝠型態)			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -625,21 +658,26 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$nextPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="18" name="任務五:ppt" tags="" position="650,2450" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="17" name="任務五:ppt" tags="" position="650,2450" size="100,100">(if:$LP_user &lt;= 15 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 15)$LP_user]
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;DallE&quot;))
-怪獸名稱：歐菲斯真妖獸(拋破蠅型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(拋破蠅型態)			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -692,21 +730,26 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$nextPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="19" name="任務五:word" tags="" position="525,2450" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="18" name="任務五:word" tags="" position="525,2450" size="100,100">(if:$LP_user &lt;= 10 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 10)$LP_user]
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;ChatGPT&quot;))
-怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：歐菲斯真妖獸(砸瓦魯多型態)			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了歐菲斯真妖獸！！
     
@@ -759,19 +802,24 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$nextPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="20" name="任務五:開始一" tags="" position="600,2200" size="100,100">(set:$LP_monster03 to 1500)\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="19" name="任務五:開始一" tags="" position="600,2200" size="100,100">(set:$LP_monster03 to 1500)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+怪獸名稱：歐菲斯真妖獸			LP : (print:$LP_monster03)
 
 「歐菲斯真妖獸」出現了！，
 牠會在四種型態間切換，
@@ -798,18 +846,23 @@ LP : (print:$LP_user)
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務五:開始二]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="21" name="任務五:開始二" tags="" position="600,2325" size="100,100">LP : (print:$LP_user)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="20" name="任務五:開始二" tags="" position="600,2325" size="100,100">LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;資料清洗&quot;, &quot;資料理解&quot;))
-怪獸名稱：歐菲斯真妖獸	LP : (print:$LP_monster03)
+怪獸名稱：歐菲斯真妖獸			LP : (print:$LP_monster03)
 
 「歐菲斯真妖獸」出現了！，
 牠會在四種型態間切換，
@@ -843,21 +896,26 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;$nextPage]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$nextPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="22" name="任務四:戰鬥" tags="" position="600,2075" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="21" name="任務四:戰鬥" tags="" position="600,2075" size="100,100">(if:$LP_user &lt;= 20 and $LP_monster03 &gt; 0)[ [[你屎掉了~-&gt;Hello World]] ]\
 (else:)[\
 LP : (print:$LP_user)\
 (if:$LP_monster03 &lt;= 0)[](else:)[ --&gt; (set: $LP_user to $LP_user - 20)$LP_user]
 
 💢【怪物出現！】
 
-怪獸名稱：PDF霹靂a蝠	LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
+怪獸名稱：PDF霹靂a蝠			LP : (if:$LP_monster03 &lt;= 0)[0](else:)[$LP_monster03]
 (if: $LP_monster03 &lt;= 0)[
 	你擊敗了PDF霹靂a蝠...才怪！！
     一個新的怪物從霹靂a蝠的身體中鑽出...
@@ -883,7 +941,7 @@ $message未來都將造成 (print:$is_know * $is_clean) 倍傷害
 PDF霹靂a蝠對你造成了 20 點傷害！
 ####################
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=auto&gt;
 牠是由短時間內需生出簡報與圖表、插圖的人的怨念而產生，是十分的危險怪獸！
 你想要如何反擊？
 
@@ -907,14 +965,19 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]\
 ]
 
 ]
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="23" name="任務四:準備" tags="" position="600,1825" size="100,100">LP : (print:$LP_user)
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="22" name="任務四:準備" tags="" position="600,1825" size="100,100">LP : (print:$LP_user)
 
 你小心翼翼地往基地台前進
 一路上也碎念一下基地台為什麼這麼偏遠
@@ -928,14 +991,14 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 [[道具欄]]
 (set: $lastPage to (passage:)&#39;s name)
 (replace: ?Sidebar)[]
-(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="24" name="任務四:開始" tags="" position="600,1950" size="100,100">(set:$LP_monster03 to 600)\
+(set: $message to &quot;你還沒進行資料前處理！&quot;)</tw-passagedata><tw-passagedata pid="23" name="任務四:開始" tags="" position="600,1950" size="100,100">(set:$LP_monster03 to 600)\
 LP : (print:$LP_user)
 
 💢【怪物出現！】
 (set:$monster03_weak to (a: &quot;ChatGPT&quot;, &quot;OCR&quot;, &quot;資料理解&quot;))
-怪獸名稱：PDF霹靂a蝠	LP : (print:$LP_monster03)
+怪獸名稱：PDF霹靂a蝠			LP : (print:$LP_monster03)
 &lt;img
-src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=&quot;500&quot;&gt;
+src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/images/霹靂a蝠.png&quot; width=&quot;400&quot; height=auto&gt;
 你遇到了「PDF霹靂a蝠」，
 霹笛蝠左邊的頭有文字護盾、右邊的頭圖案頭盔
 且一回合可以攻擊2次！
@@ -961,14 +1024,19 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
               ]\
      	]
 	]
-    (if: _countAll is 0)[ [[&quot;沒有武器了...等死吧~&quot;-&gt;任務四:戰鬥]] ]
+    (if: _countAll is 0)[\
+      (set: $dmg to 0)\
+      (set: $message to &quot;&quot;)\
+      [[沒有武器了...等死吧~-&gt;$lastPage]]
+      [[重頭來過-&gt;Hello World]]
+    ]
 ]
 
 
 
 
 (set: $lastPage to (passage:)&#39;s name)
-(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="25" name="道具欄" tags="" position="725,200" size="100,100">(if: $inventory&#39;s length is not 0)[
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="24" name="道具欄" tags="" position="725,200" size="100,100">(if: $inventory&#39;s length is not 0)[
 	你目前的道具有 : 
 	(for: each _item, ...$inventory)[
     	(set:_count to  $countTable&#39;s _item)\
@@ -981,7 +1049,7 @@ src=&quot;https://raw.githubusercontent.com/richard7822534/twine-game/main/image
 
 
 [[返回-&gt;$lastPage]]
-(replace: ?Sidebar)[]</tw-passagedata></tw-storydata>
+(replace: ?Sidebar)[]</tw-passagedata><tw-passagedata pid="25" name="$nextPage" tags="" position="600,2575" size="100,100"></tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
